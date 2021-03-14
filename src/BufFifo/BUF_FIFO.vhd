@@ -75,41 +75,38 @@ architecture RTL of BUF_FIFO is
   -- No Exstra Lines
   constant C_NUM_LINES    : integer := 8;
   
-  signal pixel_cnt        : unsigned(15 downto 0);
-  signal line_cnt         : unsigned(15 downto 0);
-
   --signal ramq             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
-  signal q             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
+  signal q                : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
   --signal ramd             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
-  signal ram_data             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
+  signal ram_data         : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
   
-  signal wr_ptr        : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0);
-  signal ram_write           : STD_LOGIC;
-  signal rd_ptr         : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0);
+  signal wr_ptr           : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0);
+  signal ram_write        : STD_LOGIC;
+  signal rd_ptr           : unsigned(log2(C_MAX_LINE_WIDTH*C_NUM_LINES)-1 downto 0);
   
-  signal wr_addr        : unsigned(log2(C_MAX_LINE_WIDTH)-1 downto 0);
-  signal we           : STD_LOGIC;
-  signal rd_addr         : unsigned(log2(C_MAX_LINE_WIDTH)-1 downto 0);
+  signal wr_addr          : unsigned(log2(C_MAX_LINE_WIDTH)-1 downto 0);
+  signal we               : STD_LOGIC;
+  signal rd_addr          : unsigned(log2(C_MAX_LINE_WIDTH)-1 downto 0);
   
-    signal data_out             : STD_LOGIC_VECTOR(15 downto 0);
+  signal data_out         : STD_LOGIC_VECTOR(15 downto 0);
   --signal ramd             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
-  signal data_in            : unsigned(15 downto 0);
+  signal data_in          : unsigned(15 downto 0);
   
   
-  signal wr_addr2        : unsigned(log2(C_MAX_LINE_WIDTH)-1 downto 0);
-  signal we2           : STD_LOGIC;
+  signal wr_addr2         : unsigned(log2(C_MAX_LINE_WIDTH)-1 downto 0);
+  signal we2              : STD_LOGIC;
   signal rd_addr2         : unsigned(log2(C_MAX_LINE_WIDTH)-1 downto 0);
   
-    signal data_out2             : STD_LOGIC_VECTOR(15 downto 0);
+  signal data_out2        : STD_LOGIC_VECTOR(15 downto 0);
   --signal ramd             : STD_LOGIC_VECTOR(C_PIXEL_BITS-1 downto 0);
-  signal data_in2            : unsigned(15 downto 0);
+  signal data_in2         : unsigned(15 downto 0);
   
   signal pix_inblk_cnt    : unsigned(3 downto 0);
   signal pix_inblk_cnt_d1 : unsigned(3 downto 0);
   signal line_inblk_cnt   : unsigned(2 downto 0);
   
   signal read_block_cnt   : unsigned(12 downto 0);
-  signal read_block_cnt_d1 : unsigned(12 downto 0);
+  signal read_block_cnt_d1: unsigned(12 downto 0);
   signal write_block_cnt  : unsigned(12 downto 0);
   
   signal ramraddr_int     : unsigned(16+log2(C_NUM_LINES)-1 downto 0);
@@ -129,31 +126,31 @@ architecture RTL of BUF_FIFO is
   
   signal image_write_end  : std_logic;  
   
-  signal result 				:std_logic_vector(31 downto 0);
-  signal threshold				:std_logic_vector(31 downto 0);
+  signal result 				  : std_logic_vector(31 downto 0); -- the number of pixels in input
+  signal threshold				: std_logic_vector(31 downto 0); -- pixel threshold when fifo is considered full
   
-  signal wr_counter : unsigned(15 downto 0);
-  signal rd_counter : unsigned(15 downto 0);
+  signal wr_counter       : unsigned(15 downto 0);
+  signal rd_counter       : unsigned(15 downto 0);
   
-  signal wr_mod : unsigned(15 downto 0);
-  signal rd_mod : unsigned(15 downto 0);
+  signal wr_mod           : unsigned(15 downto 0);
+  signal rd_mod           : unsigned(15 downto 0);
   
   signal wr_counter_total : unsigned(31 downto 0);
   signal rd_counter_total : unsigned(31 downto 0);
-  signal counter : unsigned(31 downto 0);
-  signal counter2 : unsigned(31 downto 0);
+  signal counter          : unsigned(31 downto 0);
+  signal counter2         : unsigned(31 downto 0);
   
-  signal init_table_wr : std_logic;
-  signal init_table_rd : std_logic;
+  signal init_table_wr    : std_logic;
+  signal init_table_rd    : std_logic;
   
-    signal do1 : unsigned(15 downto 0);
-  signal do2 : unsigned(15 downto 0);
-    signal data_temp : unsigned(15 downto 0);
-  signal data_temp2 : unsigned(15 downto 0);
+  signal do1              : unsigned(15 downto 0);
+  signal do2              : unsigned(15 downto 0);
+  signal data_temp        : unsigned(15 downto 0);
+  signal data_temp2       : unsigned(15 downto 0);
   
-   signal temp 				:std_logic_vector(23 downto 0);
+  signal temp 				    : std_logic_vector(23 downto 0);
 	
-	signal fifo_almost_full_i  : std_logic;
+	signal fifo_almost_full_i: std_logic;
 	
 	
   
@@ -228,113 +225,137 @@ begin
   ); 
   
   
-  process (CLK, RST)
+  HOST_INTERFACE_FILL_RAM_P: process (CLK, RST)
   begin
-	if (RST = '1') then
-		wr_counter <= (others => '0');
-		wr_counter_total <= (others => '0');
-		wr_mod <= (others => '0');
-		wr_ptr <= (others => '0');
-		
-		ram_write <= '0';
-		init_table_wr <= '0';
-		do1 <= (others => '0');
-		data_temp <= (others => '0');
-		wr_addr <= (others => '0');
-		rd_addr <= (others => '0');
-		we <= '0';
-		counter <= (others => '0');
-	elsif (CLK'event and CLK = '1') then
-		if (init_table_wr = '0') then
-			if (iram_wren = '1') then
-				if (wr_mod /= 0 and wr_counter mod 8 = "000") then
-					  wr_ptr <= resize(do1(5 downto 3) * unsigned(img_size_x), log2(C_MAX_LINE_WIDTH*C_NUM_LINES)) + resize(do1(15 downto 6) * 8, log2(C_MAX_LINE_WIDTH*C_NUM_LINES));
-						data_temp <=  resize(do1(5 downto 3) * unsigned(img_size_x), 16) + resize(do1(15 downto 6) * 8, 16);
-					
-					--wr_ptr <= do1 / 8 mod 8 *  unsigned(img_size_x) + do1 / 8 / 8 * 8;
-					--data_temp <= do1 / 8 mod 8 *  unsigned(img_size_x) + do1 / 8 / 8 * 8;
-				else
-					if (wr_counter = 0) then
-						wr_ptr <= (others => '0');
-					else
-						wr_ptr <= wr_ptr + 1;
-					end if;
-				end if;
-					
-				if (wr_mod /= 0 and wr_counter mod 8 = "011") then
-					if (wr_counter = unsigned(img_size_x) * 8 - 5) then
-						rd_addr <= (others => '0');
-					else
-						rd_addr <= resize((wr_counter + 5) / 8, log2(C_MAX_LINE_WIDTH));
-					end if;
-				end if;
-				
-				if (wr_mod /= 0 and wr_counter mod 8 = "101") then
-					do1 <= unsigned(data_out);
-					we <= '1';
-			
-					if (wr_mod = unsigned(img_size_y) / 8 - 1) then
-						wr_addr <= resize(counter, log2(C_MAX_LINE_WIDTH));
-						data_in <= resize(counter * 8, 16);
-						counter <= counter + 1;
-					else
-						data_in <= data_temp;
-						if (wr_counter = unsigned(img_size_x) * 8 - 3) then
-							wr_addr <= (others => '0');
-						else
-							wr_addr <= resize((wr_counter + 3) / 8 - 1, log2(C_MAX_LINE_WIDTH));
-						end if;
-					end if;
-				else
-					we <= '0';
-				end if;
-					
-				ram_write <= '1';
-				ram_data <= iram_wdata;
-		
-				wr_counter_total <= wr_counter_total  + 1;
-				
-				if (wr_counter_total = unsigned(result) - 1) then
-			
-					init_table_wr <= '1';
-					counter <= (others => '0');
-				end if;
-				
-				if (wr_counter = unsigned(img_size_x) * 8 - 1)	then		
-					wr_counter <= (others => '0');
-					wr_mod <= wr_mod + 1;
-				else
-					wr_counter <= wr_counter + 1;
-				end if;
-			else
-				ram_write <= '0';
-			end if;
-			
-      if sof = '1' then
-        wr_counter <= (others => '0');
-        wr_counter_total <= (others => '0');
-        wr_mod <= (others => '0');
-        wr_ptr <= (others => '0');
+    if (RST = '1') then
+      wr_counter <= (others => '0');
+      wr_counter_total <= (others => '0');
+      wr_mod <= (others => '0');
+      wr_ptr <= (others => '0'); --main ram wr address
+      
+      ram_write <= '0';
+      init_table_wr <= '0';
+      do1 <= (others => '0');
+      data_temp <= (others => '0');
+      wr_addr <= (others => '0');
+      rd_addr <= (others => '0');
+      we <= '0';
+      counter <= (others => '0');
+    elsif (CLK'event and CLK = '1') then
+      if (init_table_wr = '0') then -- always zero unless all pixels are read
+
+        -- if hos interface enables write on fifo
+        if (iram_wren = '1') then
+            
+          -- if we are after 1 line of 8x8 pixel blocks and we've just read 8 pixels horizzontal from host
+          if (wr_mod /= 0 and wr_counter mod 8 = "000") then
+              -- MODIFIED INCREASE
+              wr_ptr <= resize(do1(5 downto 3) * unsigned(img_size_x), log2(C_MAX_LINE_WIDTH*C_NUM_LINES)) + resize(do1(15 downto 6) * 8, log2(C_MAX_LINE_WIDTH*C_NUM_LINES));
+              data_temp <=  resize(do1(5 downto 3) * unsigned(img_size_x), 16) + resize(do1(15 downto 6) * 8, 16);
+            
+            --wr_ptr <= do1 / 8 mod 8 *  unsigned(img_size_x) + do1 / 8 / 8 * 8;
+            --data_temp <= do1 / 8 mod 8 *  unsigned(img_size_x) + do1 / 8 / 8 * 8;
+          else -- if we are writing the first line of 8x8 block pixels then go on by inreasing the address to ram (wr_ptr) 
+            -- NORMAL INCREASE
+            if (wr_counter = 0) then
+              wr_ptr <= (others => '0');
+            else
+              wr_ptr <= wr_ptr + 1;
+            end if;
+          end if;
+            
+          -- ASK data from WR_LUT
+          if (wr_mod /= 0 and wr_counter mod 8 = "011") then -- if we are after 1 line of 8x8 and on the 4 pixel of pixel_line
+            if (wr_counter = unsigned(img_size_x) * 8 - 5) then --and if we are on the 3 pixel of the last block of pixel_line
+              --  1...|0 1 2 3 4 5 6 7|
+              --  2...|0 1 2 3 4 5 6 7|
+              --  3...|0 1 2 3 4 5 6 7|
+              --  4...|0 1 2 3 4 5 6 7|
+              --  5...|0 1 2 3 4 5 6 7|
+              --  6...|0 1 2 3 4 5 6 7|
+              --  7...|0 1 2 3 4 5 6 7|
+              --  8...|0 1 2 [3] 4 5 6 7|
+              rd_addr <= (others => '0'); --read lut from beginning, preparing for next row
+            else
+              -- |0 1 2 [3] 4 5 6 7||0 1 2 [3] 4 5 6 7||0 1 2 [3] 4 5 6 7|
+              --   wr_counter=3       wr_counter=11       wr_counter=19
+              rd_addr <= resize((wr_counter + 5) / 8, log2(C_MAX_LINE_WIDTH)); --goes to next address of U_SUB_RAMZ_WR_ADRESS_LUT, effectively an rd_addr++
+            end if;
+          end if;
+          
+          -- GET data from WR_LUT
+          if (wr_mod /= 0 and wr_counter mod 8 = "101") then -- if we are after 1 line of 8x8 and on the 6 pixel of a block in pixel_line 
+                                                             -- this because the request of this infromation is done on pixel 4
+            do1 <= unsigned(data_out);
+            we <= '1';
         
-        ram_write <= '0';
-        init_table_wr <= '0';
-        do1 <= (others => '0');
-        data_temp <= (others => '0');
-        wr_addr <= (others => '0');
-        rd_addr <= (others => '0');
-        we <= '0';
-        counter <= (others => '0');
+            if (wr_mod = unsigned(img_size_y) / 8 - 1) then -- if we are at the final 8x8 block line and (from previous condtion) on the 6th pixel of a block in pixel_line
+                                                            -- meaning we are approaching the end of the picture 
+              wr_addr <= resize(counter, log2(C_MAX_LINE_WIDTH));
+              data_in <= resize(counter * 8, 16);
+              counter <= counter + 1; -- can increase from 0 to 8 lines * C_MAX_LINE_WIDTH/8 blocks = C_MAX_LINE_WIDTH
+              -- this upper thing rewrites the LUT as from counter_8.txt
+            else
+              data_in <= data_temp;
+              if (wr_counter = unsigned(img_size_x) * 8 - 2 -1) then -- if we are at the 6th pixel in the last pixel line of the last 8x8 block of a block line that is neither the first or last one (block line)
+                wr_addr <= (others => '0'); -- pust data_temp in 0000
+              else -- if we are in any 6th pixel of any 8x8 block that is not in either the first or last block line
+                wr_addr <= resize((wr_counter + 3) / 8 - 1, log2(C_MAX_LINE_WIDTH)); -- (wr_counter + 3) / 8 -1 = 
+                -- puts data_tmp in the next cell in WR_LUT, something like wr_addr ++
+                -- i think this process preapares the position where to put the next pixel that the buffer will accept
+              end if;
+            end if;
+          else
+            we <= '0';
+          end if;
+
+          -- CONSTANT SIGNALS
+          ram_write <= '1'; -- main ram write always one while hostInterface sends data
+          ram_data <= iram_wdata; -- push pixels line by line to main ram from hostInterface
+
+          wr_counter_total <= wr_counter_total  + 1; -- main counter pixel
+
+          -- if all pixels are read reinitialize 
+          if (wr_counter_total = unsigned(result) - 1) then 
+            init_table_wr <= '1';
+            counter <= (others => '0');
+          end if;
+                          
+          -- if a block line of 8x8 pixels from host was read
+          -- wr counter counts from 0 to 8 full pixel lines, aka a full 8x8 block line
+          if (wr_counter = unsigned(img_size_x) * 8 - 1)	then		
+            wr_counter <= (others => '0');
+            wr_mod <= wr_mod + 1; --increase counter to next line of 8x8 blocks from host image
+          else
+            wr_counter <= wr_counter + 1;
+          end if;
+        else
+          ram_write <= '0';
+        end if;
+       
+        -- start of frame stuff: like a second reset
+        if sof = '1' then
+          wr_counter <= (others => '0');
+          wr_counter_total <= (others => '0');
+          wr_mod <= (others => '0');
+          wr_ptr <= (others => '0');
+          
+          ram_write <= '0';
+          init_table_wr <= '0';
+          do1 <= (others => '0');
+          data_temp <= (others => '0');
+          wr_addr <= (others => '0');
+          rd_addr <= (others => '0');
+          we <= '0';
+          counter <= (others => '0');
+        end if;
+        
       end if;
-			
-		end if;
-    
-    
-		
-						
-	end if;
+      
+    end if;
   end process;
   
-	process (CLK, RST)
+	FIFO_FULLNES_P: process (CLK, RST)
 	begin
 		if (RST = '1') then
 			fifo_almost_full_i <= '0';
@@ -373,7 +394,7 @@ begin
 	
 	
 	
-	process (CLK, RST)
+	FDCT_READ_REAM_P: process (CLK, RST)
 	begin
 		if (RST = '1') then
 			fdct_fifo_q <= (others => '0');
