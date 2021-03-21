@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="buf_fifo_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="buf_fifo_tb" />
+            <top_module name="jpeg_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="570000001fs"></ZoomEndTime>
+      <Cursor1Time time="13566fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="354"></NameColumnWidth>
+      <ValueColumnWidth column_width="145"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="25" />
+   <wave_markers>
+      <marker label="" time="304500000" />
+      <marker label="" time="268500000" />
+   </wave_markers>
+   <wvobject type="logic" fp_name="/buf_fifo_tb/MASTER_CLK">
+      <obj_property name="ElementShortName">MASTER_CLK</obj_property>
+      <obj_property name="ObjectShortName">MASTER_CLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/buf_fifo_tb/MASTER_RST">
+      <obj_property name="ElementShortName">MASTER_RST</obj_property>
+      <obj_property name="ObjectShortName">MASTER_RST</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/buf_fifo_tb/sof">
+      <obj_property name="ElementShortName">sof</obj_property>
+      <obj_property name="ObjectShortName">sof</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group38">
+      <obj_property name="label">BUS_FIFO_IRAM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/buf_fifo_tb/fifo_almost_full">
+         <obj_property name="ElementShortName">fifo_almost_full</obj_property>
+         <obj_property name="ObjectShortName">fifo_almost_full</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/buf_fifo_tb/iram_wdata">
+         <obj_property name="ElementShortName">iram_wdata[23:0]</obj_property>
+         <obj_property name="ObjectShortName">iram_wdata[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/buf_fifo_tb/iram_wren">
+         <obj_property name="ElementShortName">iram_wren</obj_property>
+         <obj_property name="ObjectShortName">iram_wren</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group29">
+      <obj_property name="label">BUS_FIFO_FDCT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/fdct_fifo_hf_full">
+         <obj_property name="ElementShortName">fdct_fifo_hf_full</obj_property>
+         <obj_property name="ObjectShortName">fdct_fifo_hf_full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/fdct_fifo_rd">
+         <obj_property name="ElementShortName">fdct_fifo_rd</obj_property>
+         <obj_property name="ObjectShortName">fdct_fifo_rd</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/fdct_fifo_q">
+         <obj_property name="ElementShortName">fdct_fifo_q[23:0]</obj_property>
+         <obj_property name="ObjectShortName">fdct_fifo_q[23:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider17" type="divider">
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/wr_counter_total">
+      <obj_property name="ElementShortName">wr_counter_total[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_counter_total[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/wr_mod">
+      <obj_property name="ElementShortName">wr_mod[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_mod[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/wr_counter">
+      <obj_property name="ElementShortName">wr_counter[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_counter[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider59" type="divider">
+   </wvobject>
+   <wvobject type="logic" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/lut_wr_en">
+      <obj_property name="ElementShortName">lut_wr_en</obj_property>
+      <obj_property name="ObjectShortName">lut_wr_en</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/lut_wr_addr">
+      <obj_property name="ElementShortName">lut_wr_addr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">lut_wr_addr[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/lut_din">
+      <obj_property name="ElementShortName">lut_din[15:0]</obj_property>
+      <obj_property name="ObjectShortName">lut_din[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#F0E68C</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/lut_rd_addr">
+      <obj_property name="ElementShortName">lut_rd_addr[9:0]</obj_property>
+      <obj_property name="ObjectShortName">lut_rd_addr[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#008000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/lut_dout">
+      <obj_property name="ElementShortName">lut_dout[15:0]</obj_property>
+      <obj_property name="ObjectShortName">lut_dout[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#008000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider62" type="divider">
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/lut_dout_samp">
+      <obj_property name="ElementShortName">lut_dout_samp[15:0]</obj_property>
+      <obj_property name="ObjectShortName">lut_dout_samp[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/ram_din">
+      <obj_property name="ElementShortName">ram_din[23:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_din[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/ram_wr_addr">
+      <obj_property name="ElementShortName">ram_wr_addr[12:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_wr_addr[12:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/tmp_addr">
+      <obj_property name="ElementShortName">tmp_addr[12:0]</obj_property>
+      <obj_property name="ObjectShortName">tmp_addr[12:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/lut_upd_val_tmp">
+      <obj_property name="ElementShortName">lut_upd_val_tmp[15:0]</obj_property>
+      <obj_property name="ObjectShortName">lut_upd_val_tmp[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/tmp_val">
+      <obj_property name="ElementShortName">tmp_val[15:0]</obj_property>
+      <obj_property name="ObjectShortName">tmp_val[15:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider91" type="divider">
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/ram_rd_addr">
+      <obj_property name="ElementShortName">ram_rd_addr[12:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_rd_addr[12:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/buf_fifo_tb/BUF_FIFO_INSTANCE/ram_dout">
+      <obj_property name="ElementShortName">ram_dout[23:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_dout[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+</wave_config>
