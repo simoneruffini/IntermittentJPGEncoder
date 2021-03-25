@@ -20,6 +20,8 @@
 !/sim/**/*.*
 # Don't ingore Scripts
 !/scripts/**/*.*
+# Don't ignore Doc
+!/doc/**/*.*
 # Don't ignore this file
 !.gitignore
 !LICENCSE

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="JPEG_TB_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="JPEG_TB" />
+            <top_module name="glbl" />
+            <top_module name="gpl_v2_image_pkg" />
+            <top_module name="jpeg_pkg" />
+            <top_module name="mdct_pkg" />
+            <top_module name="mdcttb_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="263334333333fs"></ZoomStartTime>
+      <ZoomEndTime time="835334333334fs"></ZoomEndTime>
+      <Cursor1Time time="740001000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="354"></NameColumnWidth>
+      <ValueColumnWidth column_width="141"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="30" />
+   <wvobject type="logic" fp_name="/JPEG_TB/CLK">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/RST">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/ram_rdaddr">
+      <obj_property name="ElementShortName">ram_rdaddr[23:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_rdaddr[23:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/ram_q">
+      <obj_property name="ElementShortName">ram_q[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_q[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/ram_byte">
+      <obj_property name="ElementShortName">ram_byte[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_byte[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/ram_wren">
+      <obj_property name="ElementShortName">ram_wren</obj_property>
+      <obj_property name="ObjectShortName">ram_wren</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/ram_wraddr">
+      <obj_property name="ElementShortName">ram_wraddr[23:0]</obj_property>
+      <obj_property name="ObjectShortName">ram_wraddr[23:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/OPB_ABus">
+      <obj_property name="ElementShortName">OPB_ABus[31:0]</obj_property>
+      <obj_property name="ObjectShortName">OPB_ABus[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/OPB_BE">
+      <obj_property name="ElementShortName">OPB_BE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">OPB_BE[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/OPB_DBus_in">
+      <obj_property name="ElementShortName">OPB_DBus_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">OPB_DBus_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/OPB_RNW">
+      <obj_property name="ElementShortName">OPB_RNW</obj_property>
+      <obj_property name="ObjectShortName">OPB_RNW</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/OPB_select">
+      <obj_property name="ElementShortName">OPB_select</obj_property>
+      <obj_property name="ObjectShortName">OPB_select</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/OPB_DBus_out">
+      <obj_property name="ElementShortName">OPB_DBus_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">OPB_DBus_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/OPB_XferAck">
+      <obj_property name="ElementShortName">OPB_XferAck</obj_property>
+      <obj_property name="ObjectShortName">OPB_XferAck</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/OPB_retry">
+      <obj_property name="ElementShortName">OPB_retry</obj_property>
+      <obj_property name="ObjectShortName">OPB_retry</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/OPB_toutSup">
+      <obj_property name="ElementShortName">OPB_toutSup</obj_property>
+      <obj_property name="ObjectShortName">OPB_toutSup</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/OPB_errAck">
+      <obj_property name="ElementShortName">OPB_errAck</obj_property>
+      <obj_property name="ObjectShortName">OPB_errAck</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/iram_waddr">
+      <obj_property name="ElementShortName">iram_waddr[19:0]</obj_property>
+      <obj_property name="ObjectShortName">iram_waddr[19:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/iram_raddr">
+      <obj_property name="ElementShortName">iram_raddr[19:0]</obj_property>
+      <obj_property name="ObjectShortName">iram_raddr[19:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/iram_wdata">
+      <obj_property name="ElementShortName">iram_wdata[23:0]</obj_property>
+      <obj_property name="ObjectShortName">iram_wdata[23:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/iram_rdata">
+      <obj_property name="ElementShortName">iram_rdata[23:0]</obj_property>
+      <obj_property name="ObjectShortName">iram_rdata[23:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/iram_wren">
+      <obj_property name="ElementShortName">iram_wren</obj_property>
+      <obj_property name="ObjectShortName">iram_wren</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/iram_rden">
+      <obj_property name="ElementShortName">iram_rden</obj_property>
+      <obj_property name="ObjectShortName">iram_rden</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/sim_done">
+      <obj_property name="ElementShortName">sim_done</obj_property>
+      <obj_property name="ObjectShortName">sim_done</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/iram_fifo_afull">
+      <obj_property name="ElementShortName">iram_fifo_afull</obj_property>
+      <obj_property name="ObjectShortName">iram_fifo_afull</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/JPEG_TB/outif_almost_full">
+      <obj_property name="ElementShortName">outif_almost_full</obj_property>
+      <obj_property name="ObjectShortName">outif_almost_full</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/count1">
+      <obj_property name="ElementShortName">count1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">count1[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/JPEG_TB/MASTER_CLK_SPEED_HZ">
+      <obj_property name="ElementShortName">MASTER_CLK_SPEED_HZ</obj_property>
+      <obj_property name="ObjectShortName">MASTER_CLK_SPEED_HZ</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/CAPTURE_ORAM">
+      <obj_property name="ElementShortName">CAPTURE_ORAM[1:11]</obj_property>
+      <obj_property name="ObjectShortName">CAPTURE_ORAM[1:11]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/JPEG_TB/CAPTURE_BIN">
+      <obj_property name="ElementShortName">CAPTURE_BIN[1:12]</obj_property>
+      <obj_property name="ObjectShortName">CAPTURE_BIN[1:12]</obj_property>
+   </wvobject>
+</wave_config>

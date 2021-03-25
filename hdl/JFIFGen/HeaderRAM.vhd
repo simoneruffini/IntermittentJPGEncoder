@@ -37,20 +37,22 @@ begin
 	return RAM;
 end function;
 
+signal ram_block : RamType := InitRamFromFile("header.hex");
 --SIGNAL ram_block : RamType := InitRamFromFile("../design/jfifgen/header.hex");
-SIGNAL ram_block : RamType;
+--signal ram_block : RamType;
 attribute ram_init_file : string;
 attribute ram_init_file of ram_block :
-signal is "./src/jpg/JFIFGen/header.mif";
-BEGIN
-	PROCESS (clk)
-	BEGIN
-		IF (clk'event AND clk = '1') THEN
-			IF (we = '1') THEN
+signal is "header.mif";
+--signal is "./src/jpg/JFIFGen/header.mif";
+begin
+	process (clk)
+	begin
+		if rising_edge(clk) then
+			if (we = '1') then
 			    ram_block(to_integer(unsigned(waddr))) <= d;
-			END IF;
+			end if;
 
 			q <= ram_block(to_integer(unsigned(raddr)));
-		END IF;
-	END PROCESS;
-END rtl;
+		end if;
+	end process;
+end RTL;
