@@ -5,13 +5,13 @@
 --                                                                            --
 --------------------------------------------------------------------------------
 --                                                                            --
--- Title       : SUB_RAMZ                                                         --
--- Design      : EV_JPEG_ENC                                                         --
--- Author      : Michal Krepa                                                 --                                                             --                                                           --
+-- Title       : SUB_RAMZ                                                     --
+-- Design      : EV_JPEG_ENC                                                  --
+-- Author      : Michal Krepa                                                 --
 --                                                                            --
 --------------------------------------------------------------------------------
 --
--- File        : SUB_RAMZ.VHD
+-- File        : SUB_RAMZ.vhd
 -- Created     : 22/03/2009
 --
 --------------------------------------------------------------------------------
@@ -21,14 +21,10 @@
 --------------------------------------------------------------------------------
 
 library IEEE;
-  use IEEE.std_logic_1164.all;
-  use IEEE.numeric_std.all;
-  use ieee.std_logic_textio.all; --synopsis ieee
+  use IEEE.STD_LOGIC_1164.all;
+  use IEEE.NUMERIC_STD.all;
 
-library std;
-  use std.textio.all;
-
-entity SUB_RAMZ_LUT is
+entity SUB_RAMZ is
   generic (
 
     RAMADDR_W     : integer := 6;
@@ -43,27 +39,13 @@ entity SUB_RAMZ_LUT is
 
     Q                 : out   std_logic_vector(RAMDATA_W - 1 downto 0)
   );
-end entity SUB_RAMZ_LUT;
+end entity SUB_RAMZ;
 
-architecture RTL of SUB_RAMZ_LUT is
+architecture RTL of SUB_RAMZ is
 
-  type mem_type is array ((2 ** RAMADDR_W) - 1 downto 0) of
-                              std_logic_vector(RAMDATA_W - 1 downto 0);
+  type mem_type is array ((2 ** RAMADDR_W) - 1 downto 0) of std_logic_vector(RAMDATA_W - 1 downto 0);
 
-  impure function initramfromfile (RamFileName : in string) return mem_type is
-    file     RamFile     : text is in RamFileName;
-    variable ramfileline : line;
-    variable ram         : mem_type;
-  begin
-    for I in 0 to (2 ** RAMADDR_W) - 1 loop
-      readline (RamFile, ramfileline);
-      hread(ramfileline, ram(I));
-
-    end loop;
-    return ram;
-  end function;
-
-  signal mem                    : mem_type := initramfromfile("counter_8.txt");
+  signal mem                    : mem_type;
   signal read_addr              : std_logic_vector(RAMADDR_W - 1 downto 0);
 
   --attribute ram_style: string;
@@ -79,7 +61,7 @@ begin
   READ_PROC : process (CLK) is
   begin
 
-    if (CLK = '1' and CLK'event) then
+    if (CLK'event and CLK = '1') then
       read_addr <= RADDR;
     end if;
 
@@ -91,7 +73,7 @@ begin
   WRITE_PROC : process (CLK) is
   begin
 
-    if (CLK = '1' and CLK'event) then
+    if (CLK'event and CLK = '1') then
       if (WE = '1') then
         mem(to_integer(unsigned(WADDR))) <= D;
       end if;
