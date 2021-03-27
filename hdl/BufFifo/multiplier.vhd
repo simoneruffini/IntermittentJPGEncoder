@@ -53,8 +53,8 @@ begin
       prev_y    <= (others => '0');
     elsif (CLK'event and CLK = '1') then
       if (prev_x /= IMG_SIZE_X or prev_y /= IMG_SIZE_Y) then
-        RESULT    <= std_logic_vector(unsigned(IMG_SIZE_X) * unsigned(IMG_SIZE_Y), RESULT'length);
-        THRESHOLD <= std_logic_vector(unsigned(IMG_SIZE_X) * 7, THRESHOLD'length);
+        RESULT    <= std_logic_vector(unsigned(IMG_SIZE_X) * unsigned(IMG_SIZE_Y));
+        THRESHOLD <= std_logic_vector(unsigned(IMG_SIZE_X) * 7);
       end if;
 
       prev_x <= IMG_SIZE_X;

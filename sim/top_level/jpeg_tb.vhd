@@ -42,7 +42,7 @@ end JPEG_TB;
 architecture TB of JPEG_TB is
 
 ----------------------------- CONSTANTS ---------------------------------------
-constant MASTER_CLK_SPEED_HZ                : INTEGER := 1000000; -- Master clk speed in HZ.
+constant MASTER_CLK_SPEED_HZ                : INTEGER := 10000000; -- Master clk speed in HZ.
   
   type char_file is file of character;
 
