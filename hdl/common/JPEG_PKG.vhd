@@ -49,17 +49,14 @@ package JPEG_PKG is
   constant C_YUV_INPUT  : std_logic := '0';
   
   type T_SM_SETTINGS is record
+    -- Count sample in horizontal direction. Incremented ins steps of 16 samples. (16 bits)
     x_cnt               : unsigned(15 downto 0);
+    -- Count sample in vertical direction. Incremented ins steps of 8 samples. (16 bits)
     y_cnt               : unsigned(15 downto 0);
-    cmp_idx             : unsigned(2 downto 0);
+    -- Component index. Indicates currently processed color subsampling component (Y1,Y2, Cb, Cr).
+    cmp_idx             : unsigned(2 downto 0); 
   end record;
   
-  constant C_SM_SETTINGS : T_SM_SETTINGS := 
-  (
-    (others => '0'),
-    (others => '0'),
-    (others => '0')
-  );
   
   function log2(n : natural) return natural;
   

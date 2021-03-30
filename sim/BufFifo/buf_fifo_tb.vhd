@@ -1,4 +1,4 @@
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: Simone Ruffini [simone.ruffini@tutanota.com]
 -- 
@@ -16,7 +16,7 @@
 -- Revision 0.01 - File Created
 -- Additional Comments:
 -- 
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 
 ----------------------------- PACKAGES/LIBRARIES -------------------------------
@@ -36,7 +36,7 @@ end buf_fifo_tb;
 architecture Behavioral of buf_fifo_tb is
 
 
------------------------------ CONSTANTS ---------------------------------------
+----------------------------- CONSTANTS ----------------------------------------
 constant MASTER_CLK_SPEED_HZ                : INTEGER := 1000000; -- Master clk speed in HZ.
 
 ----------------------------- COMMON SIGNALS -----------------------------------
@@ -54,7 +54,7 @@ signal fdct_fifo_q        : std_logic_vector(23 downto 0);
 signal fdct_fifo_hf_full  : std_logic;
 
 begin
-  --######################### ENTITY DECALARATION #############################
+  --######################### ENTITY DEFINITION ################################
 
   CLK_GEN_INSTANCE: entity work.ClkGen
   generic map (
@@ -82,7 +82,7 @@ begin
     fdct_fifo_hf_full => fdct_fifo_hf_full
 	);
 
-  --######################## PROCESSES ########################################
+  --######################## PROCESSES #########################################
   
   TESTBENCH: process(MASTER_CLK,MASTER_RST)
     variable internal_counter: integer RANGE 0 to 2 ** iram_wdata'length;

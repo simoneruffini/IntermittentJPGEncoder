@@ -1,125 +1,130 @@
--------------------------------------------------------------------------------
--- File Name :  SingleSM.vhd
+--------------------------------------------------------------------------------
+-- Company:
+-- Engineer:  Michal Krepa
+--            Simone Ruffini [simone.ruffini@tutanota.com]
 --
--- Project   : 
+-- Create Date:     01/03/2008
+-- Design Name:     SingleSM
+-- Module Name:     SingleSM.vhd - RTL
+-- Project Name:    JPEG_ENC
+-- Target Devices:
+-- Tool Versions:
+-- Description:
 --
--- Module    :
+-- Dependencies:
 --
--- Content   : 
+-- Revision:
+-- Revision 00 - Michal Krepa
+--  * File Created
+-- Revision 01 - Simone Ruffini
+--  * Refactoring + comments
+-- Additional Comments:
 --
--- Description : 
---
--- Spec.     : 
---
--- Author    : Michal Krepa
--------------------------------------------------------------------------------
--- History :
--- 20080301: (MK): Initial Creation.
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
-library ieee;
-  use ieee.std_logic_1164.all;
+----------------------------- PACKAGES/LIBRARIES -------------------------------
 
-entity SingleSM is
-  port 
-  (
-        CLK                : in  std_logic;
-        RST                : in  std_logic;
-        -- from/to SM(m)
-        start_i            : in  std_logic;
-        idle_o             : out std_logic;
-        -- from/to SM(m+1)
-        idle_i             : in  std_logic;
-        start_o            : out std_logic;
-        -- from/to processing block
-        pb_rdy_i           : in  std_logic;
-        pb_start_o         : out std_logic;
-        -- state debug
-        fsm_o              : out std_logic_vector(1 downto 0)
-    );
-end entity SingleSM;   
+library IEEE;
+  use IEEE.std_logic_1164.all;
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
------------------------------------ ARCHITECTURE ------------------------------
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
-architecture SingleSM_rtl of SingleSM is
+----------------------------- ENTITY -------------------------------------------
 
+entity SINGLESM is
+  port (
+    CLK                : in    std_logic;
+    RST                : in    std_logic;
+    -- from/to SM(m-1)
+    START_I            : in    std_logic;
+    IDLE_O             : out   std_logic;
+    -- from/to SM(m+1)
+    IDLE_I             : in    std_logic;
+    START_O            : out   std_logic;
+    -- from/to processing block
+    PB_RDY_I           : in    std_logic;
+    PB_START_O         : out   std_logic;
+    -- state debug
+    FSM_O              : out   std_logic_vector(1 downto 0)
+  );
+end entity SINGLESM;
 
--------------------------------------------------------------------------------
--- Architecture: Signal definition.
--------------------------------------------------------------------------------
-  type T_STATE is (IDLE, WAIT_FOR_BLK_RDY, WAIT_FOR_BLK_IDLE);
-  
-  signal state : T_STATE;
-  
--------------------------------------------------------------------------------
--- Architecture: begin
--------------------------------------------------------------------------------
+----------------------------- ARCHITECTURE -------------------------------------
+
+architecture RTL of SINGLESM is
+
+  --########################### SIGNALS ##########################################
+
+  -- types
+  type t_state is (IDLE, WAIT_FOR_BLK_RDY, WAIT_FOR_BLK_IDLE);
+
+  -- signals
+  signal state : t_state;
+
+  --########################### ARCHITECTURE BEGIN ###############################
+
 begin
 
-  fsm_o <= "00" when state = IDLE else
+  --########################### COMBINATORIAL LOGIC ##############################
+
+  FSM_O <= "00" when state = IDLE else
            "01" when state = WAIT_FOR_BLK_RDY else
            "10" when state = WAIT_FOR_BLK_IDLE else
            "11";
 
-  ------------------------------------------------------------------------------
-  -- FSM
-  ------------------------------------------------------------------------------
-  p_fsm : process(CLK, RST)
+  --########################### PROCESSES ########################################
+
+  P_FSM : process (CLK, RST) is
   begin
-    if RST = '1' then
-      idle_o     <= '0';
-      start_o    <= '0';
-      pb_start_o <= '0';
+
+    if (RST = '1') then
+      IDLE_O     <= '0';
+      START_O    <= '0';
+      PB_START_O <= '0';
       state      <= IDLE;
-    elsif CLK'event and CLK = '1' then
-      idle_o     <= '0';
-      start_o    <= '0';
-      pb_start_o <= '0';
-    
+    elsif (CLK'event and CLK = '1') then
+      IDLE_O     <= '0';
+      START_O    <= '0';
+      PB_START_O <= '0';
+
       case state is
+
         when IDLE =>
-          idle_o <= '1';
+          IDLE_O <= '1';
           -- this fsm is started
-          if start_i = '1' then
-            state      <= WAIT_FOR_BLK_RDY;
+          if (START_I = '1') then
+            state <= WAIT_FOR_BLK_RDY;
             -- start processing block associated with this FSM
-            pb_start_o <= '1';
-            idle_o     <= '0';
-          end if;       
-        
+            PB_START_O <= '1';
+            IDLE_O     <= '0';
+          end if;
+
         when WAIT_FOR_BLK_RDY =>
           -- wait until processing block completes
-          if pb_rdy_i = '1' then
+          if (PB_RDY_I = '1') then
             -- wait until next FSM is idle before starting it
-            if idle_i = '1' then
+            if (IDLE_I = '1') then
               state   <= IDLE;
-              start_o <= '1';
+              START_O <= '1';
             else
               state <= WAIT_FOR_BLK_IDLE;
             end if;
           end if;
-        
-        when WAIT_FOR_BLK_IDLE =>
-          if idle_i = '1' then
-            state   <= IDLE;
-            start_o <= '1';
-          end if;
-        
-        when others =>
-          idle_o     <= '0';
-          start_o    <= '0';
-          pb_start_o <= '0';
-          state      <= IDLE;
-        
-      end case;
-      
-    end if;
-  end process;
 
-end architecture SingleSM_rtl;
--------------------------------------------------------------------------------
--- Architecture: end
--------------------------------------------------------------------------------
+        when WAIT_FOR_BLK_IDLE =>
+          if (IDLE_I = '1') then
+            state   <= IDLE;
+            START_O <= '1';
+          end if;
+
+        when others =>
+          IDLE_O     <= '0';
+          START_O    <= '0';
+          PB_START_O <= '0';
+          state      <= IDLE;
+
+      end case;
+
+    end if;
+
+  end process P_FSM;
+
+end architecture RTL;
