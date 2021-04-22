@@ -47,6 +47,9 @@ package JPEG_PKG is
   -- 0 = RGB
   -- 1 = YUV/YCbCr
   constant C_YUV_INPUT  : std_logic := '0';
+
+  -- Witdth of the main bus
+  constant C_BUS_BIT_WIDTH  : natural := 32;
   
   type T_SM_SETTINGS is record
     -- Count sample in horizontal direction. Incremented ins steps of 16 samples. (16 bits)

@@ -1,79 +1,83 @@
 ----------------------------------------------------------------------------------
--- Company: 
+-- Company:
 -- Engineer: Simone Ruffini [simone.ruffini@tutanota.com]
--- 
+--
 -- Create Date: 03/16/2021 02:49:33 PM
--- Design Name: 
--- Module Name: buf_fifo_tb - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
+-- Design Name: ClkGen
+-- Module Name: ClkGen.vhd- Behavioral
+-- Project Name: Intermittent JPEG Encoder
+-- Target Devices:
+-- Tool Versions:
+-- Description:
+--
+-- Dependencies:
+--
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+--
 ----------------------------------------------------------------------------------
 
------------------------------ PACKAGES/LIBRARIES ------------------------------
+----------------------------- PACKAGES/LIBRARIES -------------------------------
+
 library IEEE;
-  use IEEE.STD_LOGIC_1164.ALL;
---  use IEEE.NUMERIC_STD.ALL;   -- arithmetic functions with Signed or Unsigned values
+  use IEEE.std_logic_1164.all;
+  --  use IEEE.NUMERIC_STD.ALL;   -- arithmetic functions with Signed or Unsigned values
 
+----------------------------- ENTITY -------------------------------------------
 
------------------------------ ENTITY ------------------------------------------
 entity ClkGen is
   generic (
     CLK_HZ        : integer := 100000000
   );
-	port (
-	     CLK        : out  std_logic;
-	     RST        : out  std_logic
-	);
+  port (
+    CLK        : out   std_logic;
+    RST        : out   std_logic
+  );
 end entity ClkGen;
 
+----------------------------- ARCHITECTURE -------------------------------------
 
------------------------------ ARCHITECTURE ------------------------------------
-architecture Behavioral of ClkGen is
+architecture BEHAVIORAL of ClkGen is
 
+  --########################### CONSTANTS ######################################
+  constant C_CLOCK_PERIOD_NS : time := (1e9 / CLK_HZ) * 1 ns;
 
-	constant CLOCK_PERIOD_NS : time := (1e9/CLK_HZ) * 1 ns;
+  --########################### SIGNALS ########################################
+  signal clk_s               : std_logic := '0';
+  signal rst_s               : std_logic := '0';
 
-	signal clk_s : std_logic := '0'; 
-	signal rst_s : std_logic := '0'; 
-	
-
+  --########################### ARCHITECTURE BEGIN #############################
 begin
 
-  --------------------------- PROCESSES --------------------------------------
+  --########################## PROCESSES #######################################
 
   -- Clock generator (50% duty cycle)
-	CLK_GEN: process
-	begin
-		clk_s <= '0';
-		wait for CLOCK_PERIOD_NS/2;
-		clk_s <= '1';
-		wait for CLOCK_PERIOD_NS/2;
-	end process clk_gen;
-  
-	CLK <= clk_s;
-  
+  P_CLK_GEN : process is
+  begin
 
-	RESET_GEN: process
-	begin
-		wait until rising_edge(clk_s);
-		rst_s <= '0';
-		wait until rising_edge(clk_s);
-		rst_s <= '1';
-		wait until rising_edge(clk_s);
-		rst_s <= '0';
-		wait;
-	end process reset_gen;
+    clk_s <= '0';
+    wait for C_CLOCK_PERIOD_NS / 2;
+    clk_s <= '1';
+    wait for C_CLOCK_PERIOD_NS / 2;
 
-	RST <= rst_s;
+  end process P_CLK_GEN;
 
+  CLK <= clk_s;
 
-end architecture Behavioral;
+  P_RESET_GEN : process is
+  begin
+
+    wait until rising_edge(clk_s);
+    rst_s <= '0';
+    wait until rising_edge(clk_s);
+    rst_s <= '1';
+    wait until rising_edge(clk_s);
+    rst_s <= '0';
+    wait;
+
+  end process P_RESET_GEN;
+
+  RST <= rst_s;
+
+end architecture BEHAVIORAL;

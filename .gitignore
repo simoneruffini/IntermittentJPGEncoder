@@ -22,6 +22,8 @@
 !/scripts/**/*.*
 # Don't ignore Doc
 !/doc/**/*.*
+# Don't ignore .vscode settings
+!/.vscode/**/*.*
 # Don't ignore this file
 !.gitignore
 !LICENCSE
