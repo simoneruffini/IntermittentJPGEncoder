@@ -1,0 +1,7 @@
+set data [get_value /JPEG_TB/U_JpegEnc/U_FDCT/U_FIFO1/U_RAMF/mem]
+puts $save_file $data
+close $save_file
+pwd
+/home/simone
+get_property DIRECTORY [current_project]
+/home/simone/Documents/IntermittentJPGEncoder/vivado

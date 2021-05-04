@@ -148,6 +148,13 @@ architecture RTL of JpegEnc is
   signal fdct_fifo_rd       : std_logic;
   signal fdct_fifo_q        : std_logic_vector(23 downto 0);
   signal fdct_fifo_hf_full  : std_logic;
+
+  ------------------------------------------------------------------------------
+  -- Intermittent Enhancment Ports
+  signal bus_msync_s        : std_logic := '0'; 
+  signal bus_rx_s           : std_logic_vector(C_BUS_BIT_WIDTH - 1 downto 0) := (others => '0'); 
+  signal bus_tx_s           : std_logic_vector(C_BUS_BIT_WIDTH - 1 downto 0) := (others => '0'); 
+  signal bus_ssync_s        : std_logic := '0'; 
   
 -------------------------------------------------------------------------------
 -- Architecture: begin
@@ -226,6 +233,12 @@ begin
   (
         CLK                => CLK,
         RST                => RST,
+
+        -- Intermittent Enhancment Ports
+        BUS_MSYNC          => bus_msync_s ,
+        BUS_RX             => bus_rx_s    ,
+        BUS_TX             => bus_tx_s   ,
+        BUS_SSYNC          => bus_ssync_s ,
         
         -- output IF
         outif_almost_full  => outif_almost_full,
